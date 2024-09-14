@@ -1,0 +1,54 @@
+<html>
+    <script>
+        let id=1;
+        function createDiv(title,description, id){
+            const MainDiv=document.createElement("div");
+            const TitleDiv=document.createElement("div");
+            TitleDiv.innerHTML=title;
+            const DescriptionDiv=document.createElement("div");
+            DescriptionDiv.innerHTML=description;
+            const Button=document.createElement("button");
+            Button.innerHTML="Mark as Done";
+            Button.setAttribute("onclick",`Mark_as_Done(${id})`);
+            MainDiv.appendChild(TitleDiv);
+            MainDiv.appendChild(DescriptionDiv);
+            MainDiv.appendChild(Button);
+            MainDiv.setAttribute("id",id);
+            return MainDiv;
+
+        }
+        function Mark_as_Done(id){
+            let element=document.getElementById(id);
+            element.children[2].innerHTML="Task Completed";
+        }
+
+        function Add_Task1(){
+            let title=document.getElementById("title").value;
+            let description=document.getElementById("description").value;
+            let container=document.getElementById("container");
+            container.appendChild(createDiv(title,description,id++));
+        }
+
+
+
+
+        // without creating a new element
+        function Add_Task(){
+            let title=document.getElementById("title").value;
+            let description=document.getElementById("description").value;
+            let original=document.getElementById("container").innerHTML;
+
+            document.getElementById("container").innerHTML=original+`
+            <div>${title}</div>
+            <div>${description}</div>
+            <button>Mark as Done</button>
+            `;
+        }
+    </script>
+    <body>
+        <input id="title" placeholder="title"></input><br><br>
+        <input id="description" placeholder="description"></input><br><br>
+        <button id="Add Task" onclick="Add_Task1()">Add Task</button>
+        <div id="container"></div>
+    </body>
+</html>

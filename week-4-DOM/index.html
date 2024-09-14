@@ -1,0 +1,33 @@
+<html>
+    <style>
+        .container{
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f1f1f1;
+            margin: 2;
+        }
+    </style>
+    <script>
+        let timeout;
+        // debouncing function
+        // if the user tyoes within 100ms, then earlier request get canceled and new request will be sent.
+        function debounceAdd(){
+            clearTimeout(timeout);
+            timeout=setTimeout(add,100);
+        }
+        function add(){
+            const firstNumber=document.getElementById("firstNumber").value;
+            const secondNumber=document.getElementById("SecondNumber").value;
+            const sum=parseInt(firstNumber)+parseInt(secondNumber);
+            document.getElementById("finalSum").innerHTML="The sum of the two numbers is: "+sum;
+        }
+    </script>
+    <body>
+        <input id="firstNumber" oninput="debounceAdd()" class="container" type="text" placeholder="First Number"></input><br><br>
+        <input id="SecondNumber" oninput="debiunceAdd()" type="text" placeholder="Second Number"></input><br><br>
+        <!-- <button onclick="add()">Add</button> -->
+        <div id="finalSum"></div>
+    </body>
+</html>
