@@ -1,5 +1,7 @@
 // const fs=require("fs");
 
+// import { set } from "express/lib/application";
+
 // function readAndWrite(cb){
 //     fs.readFile("a.txt","utf-8",function(err,data){
 //         data=data+"The new text has been added."
@@ -60,20 +62,83 @@
 // setTimeout(SomeSyncTask,1000);
 // SomeSyncTask2();
 
-function fn(resolve){
-    let a=0;
-    for(let i=1;i<10;i++){
-        a=a+1;
-    }
-    resolve(a);
+// function fn(resolve){
+//     let a=0;
+//     for(let i=1;i<10;i++){
+//         a=a+1;
+//     }
+//     resolve(a);
+// }
+
+// const p=new Promise(fn);
+
+// p.then(function(args){
+//     console.log("the value is :"+args);
+// });
+
+
+
+
+
+
+
+// practice 
+// callbacks
+
+// function add(callback,a,b){
+//     setTimeout(function(){
+//         callback(a+b);
+//     },5000);
+// }
+
+// function callback(result){
+//     console.log("The result is :"+result);
+// }
+
+// add(callback,5,5);
+
+
+
+// promises
+
+// function add(a, b) {
+//     return new Promise(function(resolve, reject) {
+//         // console.log(resolve);
+//         setTimeout(function() {
+//             resolve(a + b);
+//         }, 5000);
+//     });
+// }
+
+// add(5, 5).then(function(result) {
+//     console.log("The result is :" + result);
+// });
+
+
+// example:2(using endpoints)
+// endpoint: http://localhost:3000/add
+import fetch from 'node-fetch';
+
+function add(a, b) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            fetch("http://localhost:3000/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    a: a,
+                    b: b
+                })
+            })
+            .then(response => response.json())
+            .then(data => resolve(data))
+            .catch(error => reject(error));
+        }, 3000);
+    });
 }
 
-const p=new Promise(fn);
-
-p.then(function(args){
-    console.log("the value is :"+args);
-});
-
-
-
-
+add(5,5).then(function(result){
+    console.log("The result is :"+result.sum);
+})

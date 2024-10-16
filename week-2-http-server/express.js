@@ -81,4 +81,16 @@ app.delete('/',function(req,res){
 
 });
 
-app.listen(3000);
+
+app.post('/add', function(req, res) {
+    const a = parseInt(req.body.a);
+    const b = parseInt(req.body.b);
+    const sum = a + b;
+    res.send({
+        "sum": sum
+    });
+})
+
+app.listen(3000, function() {
+    console.log("Server is running on port 3000");
+});
