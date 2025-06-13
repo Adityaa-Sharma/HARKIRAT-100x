@@ -1,22 +1,44 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+// create the component that will render for 10 sec and then disappear
 
+function App() {
+  const [render, setRender]=useState(true);
+
+  // after 10 sec, setRender to false
+  useEffect(()=>{
+    setTimeout(()=>{
+      setRender(false)
+    },5000)
+  },[])
+
+  return(
+    <>
+    {render ?<MyComponent/>:<div></div>}
+    </>
+  )
+
+
+}
 
 function MyComponent(){ 
-  const [count, setCount]=useState(0);
+  // life cycle events
+  useEffect(()=>{
+    console.error('Component mounted');
 
-  const increment=()=>{
-    setCount(count+1);
-  }
+    return ()=>{
+      console.log('Component will unmount');
+    }
+  },[]);
 
-  return (
-    <>
-    <p>{count}</p>
-    <button onClick={increment}>Increment</button>
-    </>
-  );
+  return(
+    <div>
+      <h1>Component rendered</h1> 
+    </div>
+  )
+
 }
 
 
-export default MyComponent
+export default App;
   
