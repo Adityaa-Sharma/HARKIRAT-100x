@@ -1,5 +1,10 @@
 const express=require("express");
+const cors = require("cors");
 const app=express();
+
+app.use(express.json());
+app.use(cors()); // This enables CORS for all routes
+
 
 app.use(express.json());
 var users=[{
@@ -88,6 +93,19 @@ app.post('/add', function(req, res) {
     const sum = a + b;
     res.send({
         "sum": sum
+    });
+})
+
+
+app.get('/debouncing', function(req, res) {
+    const ran = Math.random();
+    return res.send({
+        "random": ran,
+        "query": req.query.data,
+        "message": "This is a debounced response",
+        "timestamp": new Date().toISOString(),
+        "status": "success"
+      
     });
 })
 
